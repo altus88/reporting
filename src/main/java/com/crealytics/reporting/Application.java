@@ -29,10 +29,14 @@ public class Application
         {
             ReportEntity reportEntity = new ReportEntity();
             reportEntity.setSite(Site.ANDROID);
-            reportEntity.setRevenue(100f);
-            reportEntity.setConversions(300);
-            reportEntity = reportService.save(reportEntity);
+            reportEntity.setRequests(-1);
+            reportEntity.setImpressions(407);
+            reportEntity.setClicks(200);
+            reportEntity.setConversions(13);
+            reportEntity.setRevenue(21.3);
+            reportService.save(reportEntity);
             System.out.println(reportEntity.getCtr());
+
 		};
 	}
 }
