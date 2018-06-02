@@ -38,7 +38,6 @@ public class ReportServiceIT
         assertTrue(reportEntityFromDB1.isPresent());
         assertEquals(new Double(0.0),reportEntityFromDB1.get().getRevenue());
 
-
         ReportEntity reportEntity2 = new ReportEntity();
         reportEntity2.setSite(Site.DESKTOP_WEB);
         reportEntity2.setRequests(100);
@@ -59,6 +58,8 @@ public class ReportServiceIT
         assertEquals(new Double(21.3), reportEntityFromDB2.getRevenue());
 
         ReportUtils.verifyCalculatedValues(reportEntityFromDB2,49.14, 3.19, 407.0, 52.33);
+
+        assertEquals(2, reportService.findAll().size());
     }
 
     @Test(expected = ConstraintViolationException.class)

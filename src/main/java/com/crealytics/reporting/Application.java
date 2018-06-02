@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
 public class Application
@@ -23,6 +24,7 @@ public class Application
     }
 
     @Bean
+    @Profile("prod")
     InitializingBean importReportData()
 	{
 		return () ->
@@ -36,7 +38,6 @@ public class Application
             reportEntity.setRevenue(21.3);
             reportService.save(reportEntity);
             System.out.println(reportEntity.getCtr());
-
 		};
 	}
 }
