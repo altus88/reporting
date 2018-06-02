@@ -8,6 +8,8 @@ import org.apache.commons.math3.util.Precision;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,9 +20,16 @@ public class ReportService
 
     private static final int DECIMAL_PRECISION = 2;
 
-    public Optional<ReportEntity> getById(Long id)
+    public Optional<ReportEntity> findById(Long id)
     {
-        return Optional.of(reportRepository.getById(id));
+        return reportRepository.findById(id);
+    }
+
+    public List<ReportEntity> findAll()
+    {
+        List<ReportEntity> reportEntities = new ArrayList<>();
+        reportRepository.findAll().forEach(reportEntities::add);
+        return reportEntities;
     }
 
     /**
