@@ -1,5 +1,6 @@
 package com.crealytics.reporting.domain;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
 @Entity
@@ -20,6 +20,14 @@ public class ReportEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    /**
+     * Month for which reporting data was collected
+     */
+    @NotNull(message = "Month should not be null")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "month", nullable = false)
+    private Month month;
 
     /**
      * The site type where creatives were served
@@ -118,36 +126,24 @@ public class ReportEntity
         return id;
     }
 
-    public Site getSite()
-    {
-        return site;
-    }
-
-    public Integer getRequests()
-    {
-        return requests;
-    }
-
-    public Integer getImpressions()
-    {
-        return impressions;
-    }
-
-    public Integer getClicks()
-    {
-        return clicks;
-    }
-
-    public Integer getConversions()
-    {
-        return conversions;
-    }
-
-
-
     public void setId(Long id)
     {
         this.id = id;
+    }
+
+    public Month getMonth()
+    {
+        return month;
+    }
+
+    public void setMonth(Month month)
+    {
+        this.month = month;
+    }
+
+    public Site getSite()
+    {
+        return site;
     }
 
     public void setSite(Site site)
@@ -155,9 +151,19 @@ public class ReportEntity
         this.site = site;
     }
 
+    public Integer getRequests()
+    {
+        return requests;
+    }
+
     public void setRequests(Integer requests)
     {
         this.requests = requests;
+    }
+
+    public Integer getImpressions()
+    {
+        return impressions;
     }
 
     public void setImpressions(Integer impressions)
@@ -165,9 +171,19 @@ public class ReportEntity
         this.impressions = impressions;
     }
 
+    public Integer getClicks()
+    {
+        return clicks;
+    }
+
     public void setClicks(Integer clicks)
     {
         this.clicks = clicks;
+    }
+
+    public Integer getConversions()
+    {
+        return conversions;
     }
 
     public void setConversions(Integer conversions)

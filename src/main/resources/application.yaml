@@ -35,3 +35,7 @@ spring:
         dialect : org.hibernate.dialect.H2Dialect
     database: HSQL
     database-platform: org.hibernate.dialect.H2Dialect
+---
+
+api:
+  url_base: /report

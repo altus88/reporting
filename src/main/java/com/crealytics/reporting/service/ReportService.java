@@ -1,6 +1,8 @@
 package com.crealytics.reporting.service;
 
+import com.crealytics.reporting.domain.Month;
 import com.crealytics.reporting.domain.ReportEntity;
+import com.crealytics.reporting.domain.Site;
 import com.crealytics.reporting.repository.ReportRepository;
 import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 
@@ -32,9 +34,18 @@ public class ReportService
         return reportEntities;
     }
 
+    public List<ReportEntity> getByMonth(Month month)
+    {
+        return reportRepository.getByMonth(month);
+    }
+
+    public List<ReportEntity> getByMonthAndSite(Month month, Site site)
+    {
+        return reportRepository.getByMonthAndSite(month, site);
+    }
+
     /**
      *  Save report entity. CTR, CR, Fill rate and eCPM values are recalculated before the save.
-     *
      *  If a value can not be recalculated because of division by 0, this value is set to 0
      *  Report entity should be saved only via this method call, to make sure the consistency of
      *  CTR, CR, Fill rate and eCPM values
