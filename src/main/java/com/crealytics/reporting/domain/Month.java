@@ -1,5 +1,7 @@
 package com.crealytics.reporting.domain;
 
+import org.springframework.util.StringUtils;
+
 public enum Month
 {
     JANUARY("January", "1", "jan"),
@@ -28,7 +30,7 @@ public enum Month
 
     public static Month fromString(String input)
     {
-        if(input == null)
+        if(StringUtils.isEmpty(input))
         {
             throw new IllegalArgumentException("Month value should not be null");
         }

@@ -10,7 +10,5 @@ import java.util.List;
 
 public interface ReportRepository  extends CrudRepository<ReportEntity, Long>
 {
-    List<ReportEntity> getByMonth(Month month);
-
     List<ReportEntity> getByMonthAndSite(Month month, Site site);
 }

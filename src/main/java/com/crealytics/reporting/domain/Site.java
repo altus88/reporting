@@ -2,6 +2,8 @@ package com.crealytics.reporting.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import org.springframework.util.StringUtils;
+
 public enum Site
 {
     DESKTOP_WEB("desktop web"),
@@ -19,14 +21,16 @@ public enum Site
     @JsonCreator
     public static Site fromString(String input) {
 
-        if(input == null)
+        if(StringUtils.isEmpty(input))
         {
-            throw new IllegalArgumentException("Site value should not be null");
+            throw new IllegalArgumentException("Site value should not be empty");
         }
+
+        String inputLowerCase = input.toLowerCase();
 
         for (Site site : Site.values())
         {
-            if (site.toString().toLowerCase().equals(input))
+            if (site.toString().toLowerCase().equals(inputLowerCase) || site.getName().toLowerCase().equals(inputLowerCase))
             {
                 return site;
             }

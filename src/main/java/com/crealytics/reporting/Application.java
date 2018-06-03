@@ -1,6 +1,7 @@
 package com.crealytics.reporting;
 
 
+import com.crealytics.reporting.domain.Month;
 import com.crealytics.reporting.domain.ReportEntity;
 import com.crealytics.reporting.domain.Site;
 import com.crealytics.reporting.service.ReportService;
@@ -11,6 +12,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 
 @SpringBootApplication
 public class Application
@@ -29,15 +34,41 @@ public class Application
 	{
 		return () ->
         {
-            ReportEntity reportEntity = new ReportEntity();
-            reportEntity.setSite(Site.ANDROID);
-            reportEntity.setRequests(-1);
-            reportEntity.setImpressions(407);
-            reportEntity.setClicks(200);
-            reportEntity.setConversions(13);
-            reportEntity.setRevenue(21.3);
-            reportService.save(reportEntity);
-            System.out.println(reportEntity.getCtr());
+            readAndSaveDataFromCSV("2018_01_report.csv", Month.JANUARY);
+            readAndSaveDataFromCSV("2018_02_report.csv", Month.FEBRUARY);
 		};
 	}
+
+	private void readAndSaveDataFromCSV(String csvFile, Month month)
+    {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource(csvFile).getFile());
+
+        try (Scanner scanner = new Scanner(file))
+        {
+            scanner.nextLine(); //skip the header
+            while (scanner.hasNextLine())
+            {
+                String line = scanner.nextLine();
+                String[] report = line.split(",");
+                saveReport(report, month);
+            }
+            scanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveReport(String[] report, Month month)
+    {
+        ReportEntity reportEntity = new ReportEntity();
+        reportEntity.setMonth(month);
+        reportEntity.setSite(Site.fromString(report[0]));
+        reportEntity.setRequests(Integer.parseInt(report[1].trim()));
+        reportEntity.setImpressions(Integer.parseInt(report[2].trim()));
+        reportEntity.setClicks(Integer.parseInt(report[3].trim()));
+        reportEntity.setConversions(Integer.parseInt(report[4].trim()));
+        reportEntity.setRevenue(Double.parseDouble(report[5].trim()));
+        reportService.save(reportEntity);
+    }
 }

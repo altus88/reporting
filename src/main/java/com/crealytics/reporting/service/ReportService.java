@@ -34,11 +34,6 @@ public class ReportService
         return reportEntities;
     }
 
-    public List<ReportEntity> getByMonth(Month month)
-    {
-        return reportRepository.getByMonth(month);
-    }
-
     public List<ReportEntity> getByMonthAndSite(Month month, Site site)
     {
         return reportRepository.getByMonthAndSite(month, site);

@@ -39,3 +39,4 @@ spring:
 
 api:
   url_base: /report
+
