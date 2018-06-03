@@ -1,6 +1,7 @@
 package com.crealytics.reporting.service;
 
 import com.crealytics.reporting.Application;
+import com.crealytics.reporting.domain.Month;
 import com.crealytics.reporting.domain.ReportEntity;
 import com.crealytics.reporting.domain.Site;
 
@@ -30,6 +31,7 @@ public class ReportServiceIT
     public void testSave()
     {
         ReportEntity reportEntity1 = new ReportEntity();
+        reportEntity1.setMonth(Month.JANUARY);
         reportEntity1.setSite(Site.ANDROID);
 
         reportEntity1 = reportService.save(reportEntity1);
@@ -39,6 +41,7 @@ public class ReportServiceIT
         assertEquals(new Double(0.0),reportEntityFromDB1.get().getRevenue());
 
         ReportEntity reportEntity2 = new ReportEntity();
+        reportEntity2.setMonth(Month.JANUARY);
         reportEntity2.setSite(Site.DESKTOP_WEB);
         reportEntity2.setRequests(100);
         reportEntity2.setImpressions(407);

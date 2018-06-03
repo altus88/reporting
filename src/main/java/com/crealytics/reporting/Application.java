@@ -34,17 +34,14 @@ public class Application
 	{
 		return () ->
         {
-            readAndSaveDataFromCSV("2018_01_report.csv", Month.JANUARY);
-            readAndSaveDataFromCSV("2018_02_report.csv", Month.FEBRUARY);
+            readAndSaveDataFromCSV("/2018_01_report.csv", Month.JANUARY);
+            readAndSaveDataFromCSV("/2018_02_report.csv", Month.FEBRUARY);
 		};
 	}
 
 	private void readAndSaveDataFromCSV(String csvFile, Month month)
     {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(csvFile).getFile());
-
-        try (Scanner scanner = new Scanner(file))
+        try (Scanner scanner = new Scanner(getClass().getResourceAsStream(csvFile)))
         {
             scanner.nextLine(); //skip the header
             while (scanner.hasNextLine())
@@ -54,8 +51,6 @@ public class Application
                 saveReport(report, month);
             }
             scanner.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
