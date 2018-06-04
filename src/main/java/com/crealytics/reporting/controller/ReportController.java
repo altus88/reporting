@@ -1,6 +1,7 @@
 package com.crealytics.reporting.controller;
 
 import com.crealytics.reporting.domain.Month;
+import com.crealytics.reporting.domain.ReportEntity;
 import com.crealytics.reporting.domain.Site;
 import com.crealytics.reporting.service.ReportService;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "${api.url_base}")
@@ -27,12 +29,18 @@ public class ReportController
 
     @RequestMapping(method = RequestMethod.GET, value = "/{month}/{site}")
     @ResponseBody
-    public ResponseEntity<List<ReportDTO>> getReport(@PathVariable(value = "month") Month month,
+    public ReportDTO getReport(@PathVariable(value = "month") Month month,
                                                      @PathVariable(value = "site") Site site)
     {
-        List<ReportDTO> reportDTOs = new ArrayList<>();
-        reportService.getByMonthAndSite(month, site).stream().forEach(reportEntity -> reportDTOs.add(new ReportDTO(reportEntity)));
-        return new ResponseEntity<>(reportDTOs, HttpStatus.OK);
+        Optional<ReportEntity> reportEntity = reportService.getByMonthAndSite(month, site);
+        if (reportEntity.isPresent())
+        {
+            return new ReportDTO(reportEntity.get());
+        }
+        else
+        {
+            throw new ReportNotFoundException(month, site);
+        }
     }
 
     @InitBinder

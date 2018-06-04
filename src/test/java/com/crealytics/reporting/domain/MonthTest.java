@@ -24,4 +24,10 @@ public class MonthTest
     {
        Month.fromString("JANURY");
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFromStringNull()
+    {
+        Month.fromString(null);
+    }
 }

@@ -27,4 +27,10 @@ public class SiteTest
     {
         Site.fromString("Desktopweb");
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFromStringNull()
+    {
+        Site.fromString(null);
+    }
 }

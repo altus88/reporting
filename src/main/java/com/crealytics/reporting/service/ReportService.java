@@ -4,7 +4,6 @@ import com.crealytics.reporting.domain.Month;
 import com.crealytics.reporting.domain.ReportEntity;
 import com.crealytics.reporting.domain.Site;
 import com.crealytics.reporting.repository.ReportRepository;
-import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 
 import org.apache.commons.math3.util.Precision;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class ReportService
         return reportEntities;
     }
 
-    public List<ReportEntity> getByMonthAndSite(Month month, Site site)
+    public Optional<ReportEntity> getByMonthAndSite(Month month, Site site)
     {
         return reportRepository.getByMonthAndSite(month, site);
     }

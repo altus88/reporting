@@ -7,8 +7,9 @@ import com.crealytics.reporting.domain.Site;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ReportRepository  extends CrudRepository<ReportEntity, Long>
 {
-    List<ReportEntity> getByMonthAndSite(Month month, Site site);
+    Optional<ReportEntity> getByMonthAndSite(Month month, Site site);
 }

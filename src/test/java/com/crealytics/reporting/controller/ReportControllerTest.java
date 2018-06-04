@@ -54,7 +54,7 @@ public class ReportControllerTest
         mockMvc.perform(
                 get("/report/1/ios"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("[{\"month\":\"January\",\"site\":\"iOS\",\"request\":\"100\",\"impressions\":\"407\",\"clicks\":\"200\",\"conversions\":\"13\",\"revenue\":\"21.30\",\"ctr\":\"49.14\",\"cr\":\"3.19\",\"fillRate\":\"407.00\",\"eCPM\":\"52.33\"}]"));
+                .andExpect(content().json("{\"month\":\"January\",\"site\":\"iOS\",\"request\":\"100\",\"impressions\":\"407\",\"clicks\":\"200\",\"conversions\":\"13\",\"revenue\":\"21.30\",\"ctr\":\"49.14\",\"cr\":\"3.19\",\"fillRate\":\"407.00\",\"eCPM\":\"52.33\"}"));
 
         mockMvc.perform(
                 get("/report/13/ios"))
