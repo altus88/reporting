@@ -1,7 +1,5 @@
 package com.crealytics.reporting.domain;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 import org.springframework.util.StringUtils;
 
 public enum Site
@@ -18,7 +16,6 @@ public enum Site
         this.name = name;
     }
 
-    @JsonCreator
     public static Site fromString(String input) {
 
         if(StringUtils.isEmpty(input))
